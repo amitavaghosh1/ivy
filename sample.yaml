@@ -1,0 +1,23 @@
+app_test:
+  dev:
+    - name: 'database_uri/idm'
+      value: 'postgres://localhost:5433'
+      secured: true
+    - name: 'database_uri/sfdc'
+      value: 'postgres://localhost:5432'
+      secured: true
+    - name: prism_api_version
+      value: '1.23'
+  test:
+    - name: 'database_uri/idm'
+      value: 'mysql://localhost:3306'
+      secured: true
+    - name: 'database_uri/sfdc'
+      value: 'mysql://localhost:3306'
+      secured: true
+    - name: prism_api_version
+      value: '1.23'
+  production:
+    - name: 'database_uri/idm'
+      value: 'mysql://localhost:3306'
+      secured: true
