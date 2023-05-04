@@ -2,6 +2,7 @@ package src
 
 import (
 	"context"
+	"log"
 	"strings"
 	"time"
 
@@ -19,6 +20,7 @@ func (r ReaderCommand) Help() string {
 		-e env [dev/test/staging/whateverr you have access]
 		-t [json/yaml/.env, defaults to yaml] (optional)
 		-r region [defaults to us-west-2] (optional)
+		-p profile [aws profile, defaults to default]
 	`)
 }
 
@@ -29,7 +31,10 @@ func (r ReaderCommand) Run(c *cli.Context) error {
 	ac := AwsConfigReader{
 		AppName: c.String(Service),
 		Region:  c.String(Region),
+		Profile: c.String(AwsProfile),
 	}
+	log.Println("using profile", ac.Profile)
+
 	decrypted := c.Bool(DecryptSecured)
 
 	res[ac.AppName] = map[string][]ConfigParameter{}

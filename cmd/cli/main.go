@@ -30,6 +30,12 @@ func main() {
 				Aliases: []string{src.VersionShort},
 				Value:   VERSION,
 			},
+			&cli.StringFlag{
+				Name:    src.AwsProfile,
+				Aliases: []string{src.AwsProfileShort},
+				EnvVars: []string{"AWS_PROFILE"},
+				Value:   "default",
+			},
 		},
 		Commands: []*cli.Command{
 			{
@@ -41,6 +47,7 @@ func main() {
 					&cli.StringFlag{Name: src.Format, Aliases: []string{src.FormatShort}, Value: "yaml"},
 					&cli.StringFlag{Name: src.Region, Aliases: []string{src.RegionShort}, Value: "us-west-2"},
 					&cli.BoolFlag{Name: src.DecryptSecured, Aliases: []string{src.DecryptSecuredShort}, Value: false},
+					&cli.StringFlag{Name: src.AwsProfile, Aliases: []string{src.AwsProfileShort}, EnvVars: []string{"AWS_PROFILE"}, Value: "default"},
 				},
 				Action: rc.Run,
 			},
@@ -51,6 +58,7 @@ func main() {
 					&cli.StringFlag{Name: src.File, Aliases: []string{src.FileShort}, Required: true},
 					&cli.BoolFlag{Name: src.Overwrite, Aliases: []string{src.OverwriteShort}, Value: false},
 					&cli.StringSliceFlag{Name: src.Environment, Aliases: []string{src.EnvironmentShort}},
+					&cli.StringFlag{Name: src.AwsProfile, Aliases: []string{src.AwsProfileShort}, EnvVars: []string{"AWS_PROFILE"}, Value: "default"},
 				},
 				Action: wc.Run,
 			},
@@ -62,6 +70,7 @@ func main() {
 					&cli.StringFlag{Name: src.DiffEnv, Aliases: []string{src.DiffEnvShort}, Required: true},
 					&cli.StringFlag{Name: src.Environment, Aliases: []string{src.EnvironmentShort}, Value: "dev"},
 					&cli.StringFlag{Name: src.Region, Aliases: []string{src.RegionShort}, Value: "us-west-2"},
+					&cli.StringFlag{Name: src.AwsProfile, Aliases: []string{src.AwsProfileShort}, EnvVars: []string{"AWS_PROFILE"}, Value: "default"},
 				},
 				Action: dc.Run,
 			},

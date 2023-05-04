@@ -27,6 +27,9 @@ const (
 
 	DecryptSecured      = "decrypt"
 	DecryptSecuredShort = "d"
+
+	AwsProfile      = "profile"
+	AwsProfileShort = "p"
 )
 
 const (

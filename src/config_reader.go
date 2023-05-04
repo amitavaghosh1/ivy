@@ -27,14 +27,24 @@ type AwsConfigReader struct {
 	Region  string
 	AppName string
 	Path    string
+	Profile string
 }
 
-func NewReader(region, appName, path string) *AwsConfigReader {
+func NewReader(region, appName, path, profile string) *AwsConfigReader {
 	if strings.TrimSpace(region) == "" {
 		region = DefaultRegion
 	}
 
-	return &AwsConfigReader{Region: region, AppName: appName, Path: path}
+	if strings.TrimSpace(profile) == "" {
+		profile = "default"
+	}
+
+	return &AwsConfigReader{
+		Region:  region,
+		AppName: appName,
+		Path:    path,
+		Profile: profile,
+	}
 }
 
 func (ar *AwsConfigReader) GetPath() string {
@@ -47,6 +57,7 @@ func (ar *AwsConfigReader) Read(ctx context.Context, decrypt bool) ([]ConfigPara
 	sess, err := session.NewSessionWithOptions(session.Options{
 		Config:            aws.Config{Region: aws.String(ar.Region)},
 		SharedConfigState: session.SharedConfigEnable,
+		Profile:           ar.Profile,
 	})
 
 	if err != nil {
